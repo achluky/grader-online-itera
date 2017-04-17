@@ -1,0 +1,7 @@
+/codejudge-compiler/stage
+
+# OS generated files #
+######################
+.DS_Store
+
+*.class
