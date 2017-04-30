@@ -1,3 +1,3 @@
 ##ITERA CODE GRADER
 
-adalah
+adalah program
