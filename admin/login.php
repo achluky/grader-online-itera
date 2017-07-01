@@ -25,16 +25,14 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>Codejudge Admin Panel Login</title>
+<title><?= getName() ?> : Admin</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-
-<!-- Le styles -->
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <style>
 body {
-	padding-top: 20px; /* 60px to make the container go all the way to the bottom of the topbar */
+	padding-top: 20px;
 }
 .footer {
 	text-align: center;
@@ -42,18 +40,6 @@ body {
 }
 </style>
 <link href="../css/bootstrap-responsive.css" rel="stylesheet">
-
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-<!-- Le fav and touch icons -->
-<link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 
 <body>
@@ -72,8 +58,8 @@ body {
 	        </div>
 	        <div id="navbar" class="collapse navbar-collapse">
 	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="<?php echo $base_url;?>admin">Home</a></li>
-	            <li><a href="<?php echo $base_url;?>about.php">Tentang</a></li>
+	            <li class="active"><a href="<?php echo $base_url;?>admin"><i class="glyphicon glyphicon-home">&nbsp;</i>Home</a></li>
+	            <li><a href="<?php echo $base_url;?>about.php"><i class="glyphicon glyphicon-info-sign">&nbsp;</i>Tentang</a></li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
 	      </div>
@@ -86,26 +72,29 @@ body {
           echo("<div class=\"alert alert-danger\"><a class=\"close\" data-dismiss=\"alert\" href=\"#\">×</a>\nIncorrect Password!\n</div>");
         else if(isset($_GET['derror']))
           echo("<div class=\"alert alert-danger\"><a class=\"close\" data-dismiss=\"alert\" href=\"#\">×</a>\nPlease enter all the details asked before you can continue!\n</div>");
-      ?>
-	<div class="well well-large" align="center">
-		<h3>Login</h1>
-		<p>Please login to use the admin panel.</p>
-		<form method="post" action="login.php" class="bs-docs-example form-horizontal">
-			<div class="control-group">
-				<label class="control-label" for="inputIcon">Password</label>
-				<div class="controls">
-					<div class="input-prepend">
-						<span class="add-on">
-							<i class="icon-envelope"></i>
-						</span>
-						<input type="password" name="password"/>
+    ?>
+    <div class="well well-large">
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane active" id="login">
+				<form method="post" action="login.php" class="bs-docs-example form-horizontal">
+					<input type="hidden" name="action" value="login"/>
+					<div class="control-group">
+						<label class="control-label" for="inputIcon">Password</label>
+						<div class="controls">
+							<div class="input-prepend"> <span class="add-on"><i class="icon-envelope"></i></span>
+								<input type="password" name="password" class="form-control" />
+							</div>
+						</div>
 					</div>
-				</div>
+					<br/>
+					<input class="btn btn-info btn-block" type="submit" name="submit" value="Login"/>
+				</form>
 			</div>
-			<br/>
-			<input class="btn btn-primary" type="submit" name="submit" value="Login"/>
-		</form>
+		</div>
 	</div>
+	<?php
+	include('../copyright.php');
+	?>
 </div>
 <!-- /container -->
 

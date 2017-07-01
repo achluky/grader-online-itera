@@ -5,22 +5,12 @@
 	else
 		include('header.php');
 		connectdb();
+		include('breadcrumb.php');
+		include('menu.php');
 ?>
-
-<li class="active"><a id="Clock"></a>
-<li>
-<li><a href="index.php">Problems</a></li>
-<li><a href="submissions.php">Submissions</a></li>
-<li class="active"><a href="#">Scoreboard</a></li>
-<li><a href="account.php">Account</a></li>
-<li><a href="logout.php">Logout</a></li>
-</ul>
+	</nav>
 </div>
-<!--/.nav-collapse -->
-</div>
-</div>
-</div>
-<div class="container"> <div class='well'> The current standings of all the participants, the number of problems they have attempted and solved.`</div>
+<div class="container"> <div class='well'> <i class="glyphicon glyphicon-tasks">&nbsp;</i>  The current standings of all the participants, the number of problems they have attempted and solved.`</div>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -30,26 +20,35 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php
+		<?php
+        
         $query = "SELECT username, status, score FROM users WHERE username!='admin' ORDER BY score DESC";
         $result = mysql_query($query);
        	while($row = mysql_fetch_array($result)) {
-       		// displays the user, problems solved and attempted
        		$sql = "SELECT * FROM solve WHERE (status='2' AND username='".$row['username']."')";
        		$res = mysql_query($sql);
-       		echo("<tr><td>".$row['username']." ");
+       		echo("<tr>
+       					<td>".$row['username']." ");
        		if($row['status'] == 0) echo("</a> <span class=\"label label-important\">Banned</span>");
-       		echo("</td><td><span class=\"badge badge-success\">".mysql_num_rows($res));
+       		echo("		</td>
+       					<td>
+       						<span class=\"badge badge-success\">".mysql_num_rows($res));
        		$sql = "SELECT * FROM solve WHERE (status='1' AND username='".$row['username']."')";
        		$res = mysql_query($sql);
-       		echo("</span></td><td><span class=\"badge badge-warning\">".mysql_num_rows($res)."</span></td></tr>");
+       		echo("			</span>
+       					</td>
+       					<td>
+       						<span class=\"badge badge-warning\">".mysql_num_rows($res)."</span>
+       					</td>
+       			</tr>");
        	}
       ?>
 		</tbody>
 	</table>
+	<?php
+		include('copyright.php');
+	?>
 </div>
-<!-- /container -->
-
 <?php
 	include('footer.php');
 ?>

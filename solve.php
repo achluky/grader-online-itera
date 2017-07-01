@@ -1,43 +1,35 @@
 <?php
-	require_once('functions.php');
-	if(!loggedin())
-		header("Location: login.php");
-	else
-		include('header.php');
-		connectdb();
+  require_once('functions.php');
+  if(!loggedin())
+    header("Location: login.php");
+  else
+    include('header.php');
+    connectdb();
+    include('breadcrumb.php');
+    include('menu.php');
 ?>
+  </nav>
+</div>
 <link rel="stylesheet" href="css/codemirror.css">
-<li class="active"><a id="Clock"></a>
-<li>
-<li><a href="index.php">Problems</a></li>
-<li><a href="submissions.php">Submissions</a></li>
-<li><a href="scoreboard.php">Scoreboard</a></li>
-<li><a href="account.php">Account</a></li>
-<li><a href="logout.php">Logout</a></li>
-</ul>
-</div>
-<!--/.nav-collapse -->
-</div>
-</div>
-</div>
+
 <div class="container">
 	<?php
         if(isset($_GET['success']))
           echo("<div class=\"alert alert-success\">\nCongratulations! You have solved the problem successfully.\n<br><h3>" .$_GET['success'] ."</h2></div>");
-    ?>
+  ?>
 	<?php
-    	if(isset($_GET['terror']))
-          echo("<div class=\"alert alert-warning\">\nYour program exceeded the time limit. Maybe you should improve your algorithm.\n</div>");
+        if(isset($_GET['terror']))
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Your program exceeded the time limit. Maybe you should improve your algorithm.\n</div>");
         if(isset($_GET['cerror']))
-          echo("<div class=\"alert alert-danger\">\n<strong>The following errors occured:</strong><br/>\n<pre>\n".$_SESSION['cerror']."\n</pre>\n</div>");
+          echo("<div class=\"alert alert-danger\">\n<strong><i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>The following errors occured:</strong><br/>\n<pre>\n".$_SESSION['cerror']."\n</pre>\n</div>");
         else if(isset($_GET['oerror']))
-          echo("<div class=\"alert alert-danger\">\nYour program output did not match the solution for the problem. Please check your program and try again.\n</div>");
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Your program output did not match the solution for the problem. Please check your program and try again.\n</div>");
         else if(isset($_GET['lerror']))
-          echo("<div class=\"alert alert-danger\">\nYou did not use one of the allowed languages. Please use a language that is allowed.\n</div>");
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>You did not use one of the allowed languages. Please use a language that is allowed.\n</div>");
         else if(isset($_GET['serror']))
-          echo("<div class=\"alert alert-danger\">\nCould not connect to the compiler server. Please contact the admin to solve the problem.\n</div>");
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Could not connect to the compiler server. Please contact the admin to solve the problem.\n</div>");
         else if(isset($_GET['derror']))
-          echo("<div class=\"alert alert-danger\">\nPlease enter all the details asked before you can continue!\n</div>");
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Please enter all the details asked before you can continue!\n</div>");
           
         $query = "SELECT * FROM prefs";
         $result = mysql_query($query);
@@ -45,45 +37,46 @@
         $query = "SELECT status FROM users WHERE username='".$_SESSION['username']."'";
         $result = mysql_query($query);
         $status = mysql_fetch_array($result);
-        //if($accept['end'] < time())
-        //  echo("<div class=\"alert alert-error\">\nSubmissions are closed now!\n</div>");
+        if($accept['end'] < time())
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Submissions are closed now!\n</div>");
         if($status['status'] == 0)
-          echo("<div class=\"alert alert-danger\">\nYou have been banned. You cannot submit a solution.\n</div>");
-	if($accept['start']>time())
-	  header('location:index.php');
-      ?>
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>You have been banned. You cannot submit a solution.\n</div>");
+      	if($accept['start']>time())
+      	  header('location:index.php');
+  ?>
+
+
 	<h3>Submit Solution</h3>
 	<?php
-        // display the problem statement
-		echo "<hr/><div class=\"well well-large\">";
-      	if(isset($_GET['id']) and is_numeric($_GET['id'])) {
-      		$query = "SELECT * FROM problems WHERE sl='".$_GET['id']."'";
-          	$result = mysql_query($query);
-          	$row = mysql_fetch_array($result);
-      		include('markdown.php');
-		$out = Markdown($row['text']);
-		echo("<h1>".$row['name']."</h1>\n");
-		echo($out);
-		echo "</div>";
-      ?>
+    		echo "<hr/><div class=\"well well-large\">";
+          	if(isset($_GET['id']) and is_numeric($_GET['id'])) {
+          		$query = "SELECT * FROM problems WHERE sl='".$_GET['id']."'";
+              	$result = mysql_query($query);
+              	$row = mysql_fetch_array($result);
+          		include('markdown.php');
+    		$out = Markdown($row['text']);
+    		echo "<h1>".$row['name']."</h1>" ;
+    		echo($out);
+    		echo "</div>";
+  ?>
 	<br/>
-	<span class="label label-info">Time Limit: <?php echo($row['time']/1000); ?> seconds</span>
+	<span class="label label-danger">Time Limit: <?php echo($row['time']/1000); ?> seconds</span>
 	<hr/>
 	<?php
-        // get the peviously submitted solution if exists
         if(is_numeric($_GET['id'])) {
           $query = "SELECT * FROM solve WHERE (problem_id='".$_GET['id']."' AND username='".$_SESSION['username']."')";
           $result = mysql_query($query);
           $num = mysql_num_rows($result);
           $fields = mysql_fetch_array($result);
         }
-      ?>
+  ?>
 	<form method="post" action="eval.php" class="bs-docs-example form-horizontal">
-		<?php if($num == 0)
+		<?php 
+        if($num == 0)
           echo('<input type="hidden" name="ctype" value="new"/>');
         else
           echo('<input type="hidden" name="ctype" value="change"/>');
-      ?>
+    ?>
 		<input type="hidden" name="id" value="<?php if(is_numeric($_GET['id'])) echo($_GET['id']);?>"/>
 		<input type="hidden" name="lang" id="hlang" value="<?php if($num == 0) echo('c'); else echo($fields['lang']);?>"/>
 		<div class="btn-group">
@@ -107,10 +100,12 @@
 			</ul>
 		</div>
 		<br/>
+
 		Type your program below:<br/>
 		<br/>
-		<textarea style="font-family: mono; height:400px;" class="span9" name="soln" id="text" class="form-control"><?php if(!($num == 0)) echo($fields['soln']); else echo "// For Java users : Name your class 'Solution'";?>
-</textarea>
+		<textarea style="font-family: mono; height:400px;" class="span9" name="soln" id="text" class="form-control">
+      <?php if(!($num == 0)) echo($fields['soln']);?>
+    </textarea>
 		<br/>
 		<input type="submit" value="Run" class="btn btn-primary btn-large"/>
 		<span class="label label-info">You are allowed to use any of the following languages:
@@ -119,16 +114,16 @@
         if($accept['cpp'] == 1) $txt = $txt."C++, ";
         if($accept['java'] == 1) $txt = $txt."Java, ";
         if($accept['python'] == 1) $txt = $txt."Python, ";
-		 if($accept['ruby'] == 1) $txt = $txt."Ruby, ";
+        if($accept['ruby'] == 1) $txt = $txt."Ruby, ";
         $final = substr($txt, 0, strlen($txt) - 2);
         echo($final."</span>\n");
       ?>
 	</form>
 	<?php
-	}
-      ?>
+  	}  
+    include('copyright.php');
+  ?>
 </div>
-<!-- /container --> 
 
 <script language="javascript">
       function changeLang(lang) {
@@ -145,7 +140,7 @@
 		 else if(lang== 'Ruby')
           $('#hlang').val('ruby');
       }
-    </script> 
+</script> 
 <script src="js/codemirror.js"></script> 
 <script src="js/clike.js"></script> 
 <script src="js/python.js"></script> 
@@ -180,6 +175,7 @@
       else if(lang=='python') changeSyntax('Python');
 	  else if(lang=='ruby') changeSyntax('Ruby');
     </script>
+
 <?php
 	include('footer.php');
 ?>

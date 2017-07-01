@@ -1,5 +1,6 @@
-
-      <footer>
-        <center>&copy; Institut Teknologi Sumatera
-        Develover By: @ahmadluky</center>
-      </footer>
+<hr/>
+<footer>	
+<center>&copy; Institut Teknologi Sumatera</center>
+</footer>
+<br/>
+<br/>

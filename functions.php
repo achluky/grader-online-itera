@@ -5,20 +5,17 @@ $filename = 'dbinfo.php';
 $projectName = 'v.1';
 $base_url = 'http://localhost/iteraCode/';
 
-// checks if any user is logged in
 function loggedin() {
   return isset($_SESSION['username']);
 
 }
 
-// connects to the database
 function connectdb() {
     include('dbinfo.php');
     mysql_connect($host,$user,$password);
     mysql_select_db($database) or die('Error connecting to database.');
 }
 
-// generates a random alpha numeric sequence. Used to generate salt
 function randomAlphaNum($length){
   $rangeMin = pow(36, $length-1);
   $rangeMax = pow(36, $length)-1;
@@ -27,9 +24,8 @@ function randomAlphaNum($length){
   return $newRand;
 }
 
-// gets the name of the event
 function getName(){
-	return $projectName = "GRADER Online ITERA";
+	return $projectName = "Grader Online ITERA";
   /*connectdb();
   $query="SELECT name FROM prefs";
   $result = mysql_query($query);
@@ -37,7 +33,6 @@ function getName(){
   return $row['name'];*/
 }
 
-// converts text to an uniform only '\n' newline break
 function treat($text) {
 	$s1 = str_replace("\n\r", "\n", $text);
 	return str_replace("\r", "", $s1);
@@ -47,5 +42,11 @@ function getScore() {
 	$query = "SELECT sum(`score`) FROM `solve` WHERE `username`='" .$_SESSION['username'] ."'";
 	$res = mysql_query($query);
 	return mysql_fetch_row($res)[0];
+}
+
+function debug($var){
+  echo "<pre>";
+  var_dump($var);
+  echo "</pre>";
 }
 

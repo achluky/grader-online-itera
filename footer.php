@@ -1,7 +1,10 @@
-<!-- <div class="footer">Powered by <a href="http://www.mobileslife.com">batmaster</a>.</div> -->
-<!-- Le javascript
-    ================================================== --> 
-<!-- Placed at the end of the document so the pages load faster --> 
+<?php
+	if (isset($_GET['debug'])) {
+	debug($_SERVER);
+	debug($parser_url);
+	debug($parser_index);
+	}
+?>
 <script src="js/jquery.js"></script> 
 <script src="js/bootstrap-transition.js"></script> 
 <script src="js/bootstrap-alert.js"></script> 
@@ -21,8 +24,7 @@
 		var hours = digital.getHours();
 		var minutes = digital.getMinutes();
 		var seconds = digital.getSeconds();
-		var dn = "AM"; 
-		
+		var dn = "AM";
 		if (hours > 12) {
 			dn = "PM";
 			hours = hours - 12;
@@ -33,7 +35,6 @@
 			minutes = "0" + minutes;
 		if (seconds <= 9)
 			seconds = "0" + seconds;
-		
 		document.getElementById('Clock').innerHTML = hours + ":" + minutes + ":" + seconds + " " + dn;
 		setTimeout("show()", 1000);
 	}

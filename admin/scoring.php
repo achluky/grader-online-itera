@@ -7,31 +7,26 @@
 	else
 		include('header.php');
 		connectdb();
+    include('menu.php');
 ?>
-				<li class="active"><a id="Clock"></a><li>
-              <li class="active"><a href="#">Admin Panel</a></li>
-              <li><a href="users.php">Users</a></li>
-			   <li><a href="preferences.php">Preferences</a></li>
-              <li><a href="logout.php">Logout</a></li>
             </ul>
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
     </div>
-
     <div class="container">
-    
       <?php
         if(isset($_GET['updated']))
           echo("<div class=\"alert alert-success\">\nScoring Formula Updated!\n</div>");
       ?>
       <ul class="nav nav-tabs">
-        <li><a href="index.php">General</a></li>
-        <li><a href="problems.php">Problems</a></li>
-        <li class="active"><a href="#">Scoring</a></li>
+        <li><a href="#">Umum</a></li>
+        <li><a href="problems.php">Soal</a></li>
+        <li class="active"><a href="scoring.php">Penilaian</a></li>
       </ul>
       <div>
         <div>
+          <br/>
           Type out the score calculation method for each of the problems. The total score of the user will be calculated as a sum of individual scores for the problems by using the same formula on all the solved or attempted problems.<br/><br/>
           <b>You can use any of the following variables in your calculation:</b><br/>
           <code>$attempts</code> The number of attempts by the user for that problem.<br/>
@@ -41,7 +36,7 @@
           
           <form method="post" action="update.php">
             <input type="hidden" name="action" value="updateformula"/>
-            <textarea style="font-family: mono; height:200px;" class="span9" name="formula" id="text"><?php
+            <textarea style="font-family: mono; height:200px;" class="form-control" name="formula" id="text"><?php
               $query = "SELECT formula FROM prefs";
               $result = mysql_query($query);
               $fields = mysql_fetch_array($result);

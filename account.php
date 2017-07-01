@@ -1,35 +1,25 @@
 <?php
-	require_once('functions.php');
-	if(!loggedin())
-		header("Location: login.php");
-	else
-		include('header.php');
-		connectdb();
+  require_once('functions.php');
+  if(!loggedin())
+    header("Location: login.php");
+  else
+    include('header.php');
+    connectdb();
+    include('breadcrumb.php');
+    include('menu.php');
 ?>
-
-<li class="active"><a id="Clock"></a>
-<li>
-<li><a href="index.php">Problems</a></li>
-<li><a href="submissions.php">Submissions</a></li>
-<li><a href="scoreboard.php">Scoreboard</a></li>
-<li class="active"><a href="#">Account</a></li>
-<li><a href="logout.php">Logout</a></li>
-</ul>
-</div>
-<!--/.nav-collapse -->
-</div>
-</div>
+  </nav>
 </div>
 <div class="container">
   <?php
         if(isset($_GET['changed']))
-          echo("<div class=\"alert alert-success\">\nAccount settings updated!\n</div>");
+          echo("<div class=\"alert alert-success\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Account settings updated!\n</div>");
         else if(isset($_GET['passerror']))
-          echo("<div class=\"alert alert-danger\">\nThe old password you entered is wrong. Please enter the correct password and try again.\n</div>");
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>The old password you entered is wrong. Please enter the correct password and try again.\n</div>");
         else if(isset($_GET['derror']))
-          echo("<div class=\"alert alert-danger\">\nPlease enter all the details asked before you can continue!\n</div>");
+          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Please enter all the details asked before you can continue!\n</div>");
     ?>
-  <div class='well'> Account settings for <?php echo($_SESSION['username']);?></div>
+  <div class='well'> <i class="glyphicon glyphicon-info-sign">&nbsp;</i> Account settings for "<?php echo($_SESSION['username']);?>"</div>
   <hr/>
   <form method="post" action="update.php" class="bs-docs-example form-horizontal">
     <input type="hidden" name="action" value="password"/>
@@ -62,8 +52,11 @@
     <br/>
     <input class="btn btn-primary" type="submit" name="submit" value="Change Email"/>
   </form>
+  
+  <?php
+    include('copyright.php');
+  ?>
 </div>
-<!-- /container -->
 <?php
 	include('footer.php');
 ?>

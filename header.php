@@ -7,13 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-
-<!-- Le styles -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<!-- <link href="css/style.css" rel="stylesheet"> -->
 <style>
 body {
-	padding-top: 20px; /* 60px to make the container go all the way to the bottom of the topbar */
+	padding-top: 20px; 
 }
 .navbar {
   margin-bottom: 20px;
@@ -24,22 +21,8 @@ body {
 }
 </style>
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
-
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-<!-- Le fav and touch icons -->
-<link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
-
 <body>
-
 <div class="container">
 	<nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -50,7 +33,5 @@ body {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-		<a class="navbar-brand" href="#"><?php echo(getName()); ?></a> 
+		      <a class="navbar-brand" href="#"><?php echo(getName()); ?></a> 
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">

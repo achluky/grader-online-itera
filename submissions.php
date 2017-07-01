@@ -5,22 +5,12 @@
 	else
 		include('header.php');
 		connectdb();
+		include('breadcrumb.php');
+		include('menu.php');
 ?>
-
-<li class="active"><a id="Clock"></a>
-<li>
-<li><a href="index.php">Problems</a></li>
-<li class="active"><a href="#">Submissions</a></li>
-<li><a href="scoreboard.php">Scoreboard</a></li>
-<li><a href="account.php">Account</a></li>
-<li><a href="logout.php">Logout</a></li>
-</ul>
+	</nav>
 </div>
-<!--/.nav-collapse -->
-</div>
-</div>
-</div>
-<div class="container"> <div class='well'> Below is a list of submissions you have made. Click on any to edit it.</div>
+<div class="container"> <div class='well'> <i class="glyphicon glyphicon-tasks">&nbsp;</i>  Below is a list of submissions you have made. Click on any to edit it.</div>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -49,9 +39,10 @@
       ?>
 		</tbody>
 	</table>
+	<?php
+		include('copyright.php');
+	?>
 </div>
-<!-- /container -->
-
 <?php
 	include('footer.php');
 ?>

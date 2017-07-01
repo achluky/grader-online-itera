@@ -37,11 +37,21 @@
 				$start=mktime($hour, $minute,0, $month, $day, $year);
 				list($day, $month, $year, $hour, $minute) = split('[/ :]', $_POST['end']);
 				$end=mktime($hour, $minute,0, $month, $day, $year);
-				if($_POST['c']=='on') $c=1; else $c=0;
-				if($_POST['cpp']=='on') $cpp=1; else $cpp=0;
-				if($_POST['java']=='on') $java=1; else $java=0;
-				if($_POST['python']=='on') $python=1; else $python=0;
-				mysql_query("UPDATE prefs SET name='".mysql_real_escape_string($_POST['name'])."', start=$start, end=$end, c=$c, cpp=$cpp, java=$java, python=$python");
+				$c = 0; $java=0; $cpp=0;$python=0;
+				if(isset($_POST['c'])) 
+					if($_POST['c']=='on')
+						$c=1; 
+				if(isset($_POST['cpp'])) 
+					if($_POST['cpp']=='on')
+						$cpp=1; 
+				if(isset($_POST['java'])) 
+					if($_POST['java']=='on')
+						$java=1; 
+				if(isset($_POST['python'])) 
+					if ($_POST['python']=='on')
+						$python=1; 
+				$sql = "INSERT INTO event (title, start, end, c, cpp, java, python) VALUES ('".mysql_real_escape_string($_POST['name'])."', $start, $end, $c, $cpp, $java, $python)";
+				mysql_query($sql);
 				header("Location: index.php?changed=1");
 			}
 		} else if($_POST['action']=='addproblem') {
