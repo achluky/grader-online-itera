@@ -7,37 +7,31 @@
 	else
 		include('header.php');
 		connectdb();
-?>
-
-<li class="active"><a id="Clock"></a>
-<li>
-<li><a href="index.php">Admin Panel</a></li>
-<li><a href="users.php">Users</a></li>
-<li><a href="preferences.php">Preferences</a></li>
-<li><a href="logout.php">Logout</a></li>
-</ul>
-</div>
-<!--/.nav-collapse -->
-</div>
-</div>
+    require_once('menu.php');
+?>  
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="container">
   <?php
-      // get the name, email and status
       $query = "SELECT email, status FROM users WHERE username='".$_GET['uname']."'";
       $result = mysql_query($query);
       $row = mysql_fetch_array($result);
     ?>
-  <h1><small>Profile details for <?php echo($_GET['uname']); if($row['status'] == 0) echo(" <span class=\"label label-important\">Banned</span>");?></small></h1>
-  Email: <?php echo($row['email']);?> <br/>
-  <br/>
-  Details of problems attempted:
-  <table class="table table-striped">
+  <div class='well'>
+    <h4>Profile details for <?php echo($_GET['uname']); if($row['status'] == 0) echo(" <span class=\"label label-important\">Banned</span>");?></h4>
+    Email: <?php echo($row['email']);?> <br/>
+  </div>
+
+  <p>Progres pengerjaan:</p>
+  <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Problem</th>
-        <th>Attempts</th>
-        <th>Status</th>
+        <th>Soal</th>
+        <th width="200px;">Percobaan</th>
+        <th width="200px;">Status</th>
       </tr>
     </thead>
     <tbody>

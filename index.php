@@ -30,7 +30,6 @@
 				echo "<table class=\" table table-condensed \">
 					<thead>
 						<th>Soal</th>
-						<th>Start Date</th>
 						<th>Due Date</th>
 						<th>Nilai</th>
 					</thead>
@@ -66,8 +65,8 @@
 	          	        		<li><a href=\"index.php?id=".$row['sl']."\">".$row['name'].$tag."</a></li>
 	          	        	  </td>\n");
 	          	    }
-	          	    	echo "<td></td>";
-	          	    	echo "<td></td>";
+	          	    	echo "<td>".date("d-m-Y H:i",$row['addtime'])."</td>";
+	          	    	// echo "<td></td>";
 						echo "<td>
 								".$percent."%
 								

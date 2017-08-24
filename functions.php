@@ -50,3 +50,40 @@ function debug($var){
   echo "</pre>";
 }
 
+function getTime($tanggal = NULL){
+  if ($tanggal == NULL) {
+    $tanggal = date("d-m-Y H:i");
+  }
+  // list($day, $month, $year, $hour, $minute) = split('[- :]', $tanggal);
+  // return mktime($hour, $minute,0, $month, $day, $year);
+  return $tanggal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

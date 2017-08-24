@@ -33,7 +33,11 @@
 		document.getElementById('Clock').innerHTML = hours + ":" + minutes + ":" + seconds + " " + dn;
 		setTimeout("show()", 1000);
 	}
-	
 	show();
+</script>
+<!--datetime picker-->
+<script src="../js/bootstrap-datetimepicker.js"></script> 
+<script>
+	$(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
 </script>
 </body></html>

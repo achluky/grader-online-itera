@@ -33,9 +33,9 @@
 			if(trim($_POST['name']) == "")
 				header("Location: index.php?derror=1");
 			else {
-				list($day, $month, $year, $hour, $minute) = split('[/ :]', $_POST['start']);
+				list($day, $month, $year, $hour, $minute) = split('[- :]', $_POST['start']);
 				$start=mktime($hour, $minute,0, $month, $day, $year);
-				list($day, $month, $year, $hour, $minute) = split('[/ :]', $_POST['end']);
+				list($day, $month, $year, $hour, $minute) = split('[- :]', $_POST['end']);
 				$end=mktime($hour, $minute,0, $month, $day, $year);
 				$c = 0; $java=0; $cpp=0;$python=0;
 				if(isset($_POST['c'])) 
@@ -54,15 +54,44 @@
 				mysql_query($sql);
 				header("Location: index.php?changed=1");
 			}
-		} else if($_POST['action']=='addproblem') {
+		}else if($_POST['action']=='settingsedit'){
+			// update the event settingsedit
+			if(trim($_POST['title']) == "" and trim($_POST['start']) == "" and trim($_POST['end']) == "")
+				header("Location: event.php?ev=7&derror=1");
+			else {
+				list($day, $month, $year, $hour, $minute) = split('[- :]', $_POST['start']);
+				$start=mktime($hour, $minute,0, $month, $day, $year);
+				list($day, $month, $year, $hour, $minute) = split('[- :]', $_POST['end']);
+				$end=mktime($hour, $minute,0, $month, $day, $year);
+				$c = 0; $java=0; $cpp=0;$python=0;
+				if(isset($_POST['c'])) 
+					if($_POST['c']=='on')
+						$c=1; 
+				if(isset($_POST['cpp'])) 
+					if($_POST['cpp']=='on')
+						$cpp=1; 
+				if(isset($_POST['java'])) 
+					if($_POST['java']=='on')
+						$java=1; 
+				if(isset($_POST['python'])) 
+					if ($_POST['python']=='on')
+						$python=1; 
+				$sql = "UPDATE event SET title='".mysql_real_escape_string($_POST['title'])."', start='".$start ."', end='".$end."', c='".$c."', cpp='".$cpp."', java='".$java."', python='".$python."' WHERE ev_id='".$_POST['ev']."'";
+				mysql_query($sql);
+
+				header("Location: index.php?changed=1");
+			}
+		}else if($_POST['action']=='addproblem') {
 			// add a problem
 			if(trim($_POST['title']) == "" or trim($_POST['problem']) == "" or !is_numeric($_POST['time']))
 				header("Location: problems.php?derror=1");
 			else {
+				list($day, $month, $year, $hour, $minute) = split('[- :]', $_POST['duedate']);
+				$duedate=mktime($hour, $minute,0, $month, $day, $year);
 				$txt =  str_replace('\n', "<br>", mysql_real_escape_string($_POST['problem']));
-				$query="INSERT INTO `problems` ( `name` , `text`, `time`, `points`, `addtime`) VALUES ('".mysql_real_escape_string($_POST['title'])."', '".$txt ."', '".$_POST['time']."', '" .$_POST['points']."', '" .time() ."')";
+				$query="INSERT INTO `problems` ( `name` , `text`, `time`, `points`, `addtime`, `id_ev`, `duedate`) VALUES ('".mysql_real_escape_string($_POST['title'])."', '".$txt ."', '".$_POST['time']."', '" .$_POST['points']."', '" .time() ."', '".$_POST['event']."', '".$duedate."' )";
 				mysql_query($query);
-				
+
 				for ($i = 0; $i <= $_POST['total-testcase-new']; $i++) {
 					$query = "SELECT `sl` FROM `problems` WHERE `name`='" .mysql_real_escape_string($_POST['title']) ."'";
 					$result = mysql_query($query);
@@ -72,7 +101,7 @@
 					$query = "INSERT INTO `testcase` (`sl`, `input`, `output`) VALUES (" .$sl .",'" .mysql_real_escape_string($_POST[$in]) ."','" .mysql_real_escape_string($_POST[$out]) ."')";
 					mysql_query($query);
 				}
-				
+
 				header("Location: problems.php?added=1");
 			}
 		} else if($_POST['action']=='editproblem' and is_numeric($_POST['id'])) {
@@ -81,7 +110,7 @@
 				header("Location: problems.php?derror=1&action=edit&id=".$_POST['id']);
 			else {
 				$txt =  str_replace('\n', "<br>", mysql_real_escape_string($_POST['problem']));
-				$query = "UPDATE problems SET name='".mysql_real_escape_string($_POST['title'])."', text='".$txt ."', time='".$_POST['time']."' WHERE sl='".$_POST['id']."'";
+				$query = "UPDATE problems SET name='".mysql_real_escape_string($_POST['title'])."', text='".$txt ."', time='".$_POST['time']."', id_ev='".$_POST['event']."' WHERE sl='".$_POST['id']."'";
 				mysql_query($query);
 				
 				$query = "DELETE FROM testcase WHERE sl='" .$_POST['id'] ."'";

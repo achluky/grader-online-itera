@@ -22,13 +22,18 @@
         else if(isset($_GET['unbanned']))
           echo("<div class=\"alert alert-success\">\nThe user has been unbanned.\n</div>");
     ?>
-    Below is a list of users registered. You can view the details of the user or ban him.
-    <table class="table table-striped">
+    <?php
+    	echo "<div class='well'>
+    			<i class=\"glyphicon glyphicon-tasks\">&nbsp;</i> Below is a list of users registered. You can view the details of the user or ban him.
+    		  </div>";
+    ?>
+    <table class="table table-condensed ">
       <thead><tr>
         <th>Name</th>
-        <th>Solved</th>
-        <th>Attempted</th>
-        <th>Action</th>
+        <th width="200px;">Event</th>
+        <th width="100px;">Solved</th>
+        <th width="100px;">Attempted</th>
+        <th width="100px;">Action</th>
       </tr></thead>
       <tbody>
       <?php
@@ -38,7 +43,8 @@
        		// lists all the users
        		$sql = "SELECT * FROM solve WHERE (status='2' AND username='".$row['username']."')";
        		$res = mysql_query($sql);
-       		echo("<tr><td><a href=\"profile.php?uname=".$row['username']."\">".$row['username']);
+       		echo("<tr>
+                  <td><a href=\"profile.php?uname=".$row['username']."\">".$row['username']);
        		if($row['status'] == 0)
        			echo("</a> <span class=\"label label-important\">Banned</span>");
        		echo("</td><td><span class=\"badge badge-success\">".mysql_num_rows($res));

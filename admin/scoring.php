@@ -20,7 +20,7 @@
           echo("<div class=\"alert alert-success\">\nScoring Formula Updated!\n</div>");
       ?>
       <ul class="nav nav-tabs">
-        <li><a href="#">Umum</a></li>
+        <li><a href="index.php">Umum</a></li>
         <li><a href="problems.php">Soal</a></li>
         <li class="active"><a href="scoring.php">Penilaian</a></li>
       </ul>
@@ -46,8 +46,10 @@
           </form>
         </div>
       </div>
-    </div> <!-- /container -->
-
+  <?php
+  include('../copyright.php');
+  ?>
+    </div>
 <?php
 	include('footer.php');
 ?>

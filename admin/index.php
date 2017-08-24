@@ -18,12 +18,12 @@
 
 <div class="container">
   <?php
-        if(isset($_GET['changed']))
-          echo("<div class=\"alert alert-info\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Settings Saved!\n</div>");
-        else if(isset($_GET['passerror']))
-          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>The old password is incorrect!\n</div>");
-        else if(isset($_GET['derror']))
-          echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Please enter all the details asked before you can continue!\n</div>");
+    if(isset($_GET['changed']))
+      echo("<div class=\"alert alert-info\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Settings Saved!\n</div>");
+    else if(isset($_GET['passerror']))
+      echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>The old password is incorrect!\n</div>");
+    else if(isset($_GET['derror']))
+      echo("<div class=\"alert alert-danger\">\n<i class=\"glyphicon glyphicon-info-sign\">&nbsp;</i>Please enter all the details asked before you can continue!\n</div>");
   ?>
   <ul class="nav nav-tabs">
     <li class="active"><a href="#">Umum</a></li>
@@ -32,7 +32,9 @@
   </ul>
   <div>
     <div>
-        <form method="post" action="update.php" class="bs-docs-example form-horizontal">
+        <br/>
+        <div class="alert alert-info"><i class="glyphicon glyphicon-info-sign">&nbsp;</i>Below is a list of already added problems. Click on a problem to edit it.</div>
+        
           <?php
               $query = "SELECT name, start, end, c, cpp, java, python FROM prefs";
               $result = mysql_query($query);
@@ -47,43 +49,88 @@
           <?php 
 	          	while($row = mysql_fetch_array($result)) {
           ?>
-            <li><a href="event.php?ev=<?php echo $row['ev_id']?>"><?php echo $row['title']; ?></a></li>
+            <li>
+
+                <a href="event.php?ev=<?php echo $row['ev_id']?>"><?php echo $row['title']; ?></a> Start (<?php echo date("d-m-Y H:i", $row['start'])?>) End (<?php echo date("d-m-Y H:i", $row['end'])?>) 
+
+                 <?php 
+                    echo "<br/>";
+                    echo intval(getTime("23-07-2017 12:00"));echo "<br/>";
+                    echo intval(getTime());echo "<br/>";
+                    echo intval(getTime("23-07-2017 14:00"));echo "<br/>";
+
+                    if ( intval($row['start']) < intval(getTime()) and  intval(getTime()) < intval($row['end'])) {
+                      echo "<i class=\"glyphicon glyphicon-thumbs-up\"></i>";
+                    } else {
+                      echo "<i class=\"glyphicon glyphicon-thumbs-down\"></i>";
+                    }
+
+                  ?>
+            </li>
           <?php 
               }
           ?>
           </ol>
-          <p><a href="event.php?action=add"><i class="glyphicon glyphicon-plus">&nbsp;</i>add event</a></p>
-          <hr/>
-          <input type="hidden" name="action" value="settings" />
-          <input name="name" type="text" placeholder="Name of event" value="<?php echo($fields['name']);?>" class="form-control" required />
-          <br/>
-          <div id="datetimepicker1" class="input-append date">
-            <input data-format="dd/MM/yyyy hh:mm:ss" type="text" placeholder="Start Time" class="form-control" name="start" value="20/02/2017 20:20:22" required></input>
-            <span class="add-on"> 
-                <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i> 
-            </span> 
-          </div>
-          <div id="datetimepicker2" class="input-append date">
-            <input data-format="dd/MM/yyyy hh:mm:ss" type="text" placeholder="End Time" class="form-control" name="end" value="20/02/2017 20:20:22" required>
-            </input>
-            <span class="add-on"> <i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i> </span> 
-          </div>
-          <h4>Languages</h4>
-          <div class="checkbox">
-            <label>
-              <input name="cpp" type="checkbox" <?php if($fields['cpp']==1) echo("checked=\"true\"");?>/>
-              C++
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input name="c" type="checkbox" <?php if($fields['c']==1) echo("checked=\"true\"");?>/>
-              C
-            </label>
-          </div>
-          <br/>
-          <input class="btn btn-primary" type="submit" name="submit" value="Save"/>
-        </form>
+          <p><a href="" data-toggle="modal" data-target="#addEvent"><i class="glyphicon glyphicon-plus">&nbsp;</i>add event</a></p>
+          
+          <form method="post" action="update.php" class="bs-docs-example form-horizontal">
+            <div id="addEvent" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Event</h4>
+                  </div>
+                  <div class="modal-body">
+                    <input type="hidden" name="action" value="settings" />
+                    <input name="name" type="text" placeholder="Name of event" value="<?php echo($fields['name']);?>" class="form-control" required />
+                    <br/>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-calendar"> </i></span>
+                      <input type="text" id="start" placeholder="Start Time Event" name="start"  class="form-control form_datetime">
+                    </div>
+                    <br/>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-calendar"> </i></span>
+                      <input type="text" id="start" placeholder="End Time Event" name="end" class="form-control form_datetime">
+                    </div>
+                    <h4>Languages</h4>
+                    <div class="checkbox">
+                      <label>
+                        <input name="cpp" type="checkbox" <?php if($fields['cpp']==1) echo("checked=\"true\"");?>/>
+                        C++
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input name="c" type="checkbox" <?php if($fields['c']==1) echo("checked=\"true\"");?>/>
+                        C
+                      </label>
+                    </div><div class="checkbox">
+                      <label>
+                        <input name="java" type="checkbox" <?php if($fields['java']==1) echo("checked=\"true\"");?>/>
+                        Java
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input name="python" type="checkbox" <?php if($fields['python']==1) echo("checked=\"true\"");?>/>
+                        Python
+                      </label>
+                    </div>
+                    <br/>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input class="btn btn-primary" type="submit" name="submit" value="Save"/>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+
     </div>
   </div>
   <?php

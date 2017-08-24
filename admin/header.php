@@ -22,12 +22,7 @@ body {
 }
 </style>
 <link href="../css/bootstrap-responsive.css" rel="stylesheet">
-
-<link rel="shortcut icon" href="http://twitter.github.com/bootstrap/assets/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="http://twitter.github.com/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+<link href="../css/bootstrap-datetimepicker.css" rel="stylesheet">
 </head>
 
 <body>
