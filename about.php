@@ -20,15 +20,6 @@ body {
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <body>
 <div class="container">
-	<label>By <code>.Teknik Informatika ITERA</code></label>
-	<label>Source : http://github/achluky/graderOnline</label>
-	<label>Modification : </label>
-		<ul>
-			<li>Mengoptimasi algoritme compailer</li>
-			<li>Menambahkan fitur tugas perminggu</li>
-			<li>...</li>
-		</ul>
-
 </div>
 <?php
 	include('footer.php');
