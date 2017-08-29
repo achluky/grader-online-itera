@@ -5,3 +5,7 @@
 .DS_Store
 
 *.class
+/codejudge-compiler/nbproject/private/
+/compiler/nbproject/private/
+/compiler/build/
+/compiler/dist/

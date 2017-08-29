@@ -1,7 +1,7 @@
 
-package codejudge.compiler;
+package compiler;
 
-import codejudge.compiler.languages.Language;
+import compiler.languages.Language;
 
 public class TimedShell extends Thread {
 	

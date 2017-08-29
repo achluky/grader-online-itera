@@ -1,12 +1,5 @@
-/*
- * Codejudge
- * Copyright 2012, Sankha Narayan Guria (sankha93@gmail.com)
- * Licensed under MIT License.
- *
- * Codejudge Compiler Server : Thread that runs on each request
- */
 
-package codejudge.compiler;
+package compiler;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,12 +11,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import codejudge.compiler.languages.C;
-import codejudge.compiler.languages.Cpp;
-import codejudge.compiler.languages.Java;
-import codejudge.compiler.languages.Language;
-import codejudge.compiler.languages.Python;
-import codejudge.compiler.languages.Ruby;
+import compiler.languages.C;
+import compiler.languages.Cpp;
+import compiler.languages.Java;
+import compiler.languages.Language;
+import compiler.languages.Python;
+import compiler.languages.Ruby;
 
 public class RequestThread extends Thread {
 	
